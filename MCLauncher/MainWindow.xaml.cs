@@ -118,9 +118,8 @@ namespace MCLauncher {
         }
 
         public ICommand RemoveCommand => new RelayCommand((v) => InvokeRemove((Version)v));
-
         public ICommand DownloadCommand => new RelayCommand((v) => InvokeDownload((Version)v));
-
+        public ICommand InstallCommand => new RelayCommand((v) => InvokeInstall((Version)v));
 
 
         private string GetPackagePath(Package pkg) {
@@ -206,6 +205,15 @@ namespace MCLauncher {
             v.UpdateInstallStatus();
         }
 
+        private void InvokeInstall(Version v) {
+            try {
+                Process.Start(v.dlPath);
+            } catch (Exception e) {
+                Debug.WriteLine("APPX opening failed:\n" + e.ToString());
+                MessageBox.Show("APPX opening failed:\n" + e.ToString());
+            }
+        }
+
         private void ShowInstalledVersionsOnlyCheckbox_Changed(object sender, RoutedEventArgs e) {
             UserPrefs.ShowInstalledOnly = ShowInstalledVersionsOnlyCheckbox.IsChecked ?? false;
             RefreshLists();
@@ -272,10 +280,11 @@ namespace MCLauncher {
 
         public interface ICommonVersionCommands {
 
-
             ICommand DownloadCommand { get; }
 
             ICommand RemoveCommand { get; }
+
+            ICommand InstallCommand { get; }
 
         }
 
@@ -297,6 +306,7 @@ namespace MCLauncher {
                 this.IsNew = isNew;
                 this.DownloadCommand = commands.DownloadCommand;
                 this.RemoveCommand = commands.RemoveCommand;
+                this.InstallCommand = commands.InstallCommand;
                 this.GameDirectory = (versionType == VersionType.Preview ? "Minecraft-Preview-" : "Minecraft-") + Name;
             }
             public Version(string name, string directory, ICommonVersionCommands commands) {
@@ -305,6 +315,7 @@ namespace MCLauncher {
                 this.VersionType = VersionType.Imported;
                 this.DownloadCommand = commands.DownloadCommand;
                 this.RemoveCommand = commands.RemoveCommand;
+                this.InstallCommand = commands.InstallCommand;
                 this.GameDirectory = directory;
             }
 
@@ -351,6 +362,7 @@ namespace MCLauncher {
 
             public ICommand DownloadCommand { get; set; }
             public ICommand RemoveCommand { get; set; }
+            public ICommand InstallCommand { get; set; }
 
             private VersionStateChangeInfo _stateChangeInfo;
             private bool _isNew = false;
