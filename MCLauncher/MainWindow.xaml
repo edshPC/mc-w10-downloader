@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MCLauncher.WPFDataTypes"
         mc:Ignorable="d"
-        Title="Minecraft Version Manager" Height="450" Width="800">
+        Title="Minecraft Version Downloader" Height="450" Width="800">
     <Window.Resources>
         <CollectionViewSource
             x:Key="versionListViewRelease"
