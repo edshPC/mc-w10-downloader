@@ -52,7 +52,6 @@
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding DisplayName}" FontWeight="Bold" />
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding DisplayInstallStatus}" />
                 <Button x:Name="RemoveButton" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Padding="20,0" Content="Remove" Command="{Binding RemoveCommand}" CommandParameter="{Binding}" />
-                <Button x:Name="DownloadButton" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Padding="20,0" Margin="2,0,0,0" Content="Launch" Command="{Binding LaunchCommand}" CommandParameter="{Binding}" />
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="templateVersionDownloading" DataType="{x:Type local:Version}">
@@ -104,11 +103,8 @@
             <MenuItem Header="_File">
                 <MenuItem Header="Open log file" Click="MenuItemOpenLogFileClicked" />
                 <MenuItem Header="Open launcher data folder in Explorer" Click="MenuItemOpenDataDirClicked"/>
-                <MenuItem Header="_Import APPX file" Click="ImportButtonClicked" />
             </MenuItem>
             <MenuItem Header="_Options">
-                <MenuItem Header="Delete APPX after download to save space" IsCheckable="True" Name="DeleteAppxAfterDownloadOption" Checked="DeleteAppxAfterDownloadCheck_Changed" Unchecked="DeleteAppxAfterDownloadCheck_Changed" IsChecked="{Binding UserPrefs.DeleteAppxAfterDownload }" />
-                <MenuItem Header="Uninstall all versions" Name="CleanupForMicrosoftStoreReinstall" Click="MenuItemCleanupForMicrosoftStoreReinstallClicked" />
                 <MenuItem Header="Refresh version list" Name="RefreshVersionList" Click="MenuItemRefreshVersionListClicked" />
                 <MenuItem Header="Set version list endpoint..." Name="SetVersionListEndpoint" Click="MenuItemSetVersionListEndpointClicked" />
             </MenuItem>
@@ -123,9 +119,6 @@
             <TabItem Header="Preview">
                 <ContentControl x:Name="PreviewVersionList" d:DataContext="{d:DesignData /SampleData/Versions.xaml}" Template="{StaticResource templateVersionList}" Margin="5" />
             </TabItem>
-            <TabItem Header="Imported">
-                <ContentControl x:Name="ImportedVersionList" d:DataContext="{d:DesignData /SampleData/Versions.xaml}" Template="{StaticResource templateVersionList}" Margin="5" />
-            </TabItem>
         </TabControl>
 
         <Grid Grid.Row="2" VerticalAlignment="Center" Margin="5,5,5,10">
@@ -134,7 +127,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <CheckBox Grid.Row="0" Grid.Column="0" Name="ShowInstalledVersionsOnlyCheckbox" Content="Show installed versions only" Checked="ShowInstalledVersionsOnlyCheckbox_Changed" Unchecked="ShowInstalledVersionsOnlyCheckbox_Changed" IsChecked="{Binding UserPrefs.ShowInstalledOnly }" />
+            <CheckBox Grid.Row="0" Grid.Column="0" Name="ShowInstalledVersionsOnlyCheckbox" Content="Show downloaded versions only" Checked="ShowInstalledVersionsOnlyCheckbox_Changed" Unchecked="ShowInstalledVersionsOnlyCheckbox_Changed" IsChecked="{Binding UserPrefs.ShowInstalledOnly }" />
             <Grid Name="LoadingProgressGrid" Grid.Row="0" Grid.Column="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
