@@ -163,7 +163,8 @@ namespace MCLauncher {
                 }
                 try {
                     Directory.CreateDirectory(DOWNLOADS_FOLDER);
-                    await downloader.Download(v.UUID, "1", dlPath, (current, total) => {
+                    string tmpPath = dlPath + ".filepart";
+                    await downloader.Download(v.UUID, "1", tmpPath, (current, total) => {
                         if (v.StateChangeInfo.VersionState != VersionState.Downloading) {
                             Debug.WriteLine("Actual download started");
                             v.StateChangeInfo.VersionState = VersionState.Downloading;
@@ -172,6 +173,7 @@ namespace MCLauncher {
                         }
                         v.StateChangeInfo.DownloadedBytes = current;
                     }, cancelSource.Token);
+                    File.Move(tmpPath, dlPath);
                     Debug.WriteLine("Download complete");
                 } catch (BadUpdateIdentityException) {
                     Debug.WriteLine("Download failed due to failure to fetch download URL");
