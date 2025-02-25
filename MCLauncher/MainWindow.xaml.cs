@@ -25,7 +25,7 @@ namespace MCLauncher {
     public partial class MainWindow : Window, ICommonVersionCommands {
 
         private static readonly string IMPORTED_VERSIONS_PATH = @"imported_versions";
-        private static readonly string VERSIONS_API = "https://mrarm.io/r/w10-vdb";
+        private static readonly string VERSIONS_API = "https://raw.githubusercontent.com/ddf8196/mc-w10-versiondb-auto-update/refs/heads/master/versions.json.min";
         public static readonly string DOWNLOADS_FOLDER = "downloads";
 
         private VersionList _versions;
